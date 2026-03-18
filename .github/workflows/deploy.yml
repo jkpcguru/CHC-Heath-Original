@@ -1,22 +1,39 @@
-name: Deploy WordPress to GoDaddy via rsync
+name: Deploy WordPress Site
+
 on:
-  workflow_dispatch:
-    inputs:
-      deployment_dest:
-        description: 'Target server directory, leave blank for root directory'
-        required: false
-        default: ''
+  push:
+    branches:
+      - main
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repository Code
-        uses: actions/checkout@v3
-      - name: Synchronize Files with GoDaddy WordPress Hosting Server
-        uses: godaddy-wordpress/gd-wordpress-deployer@v1
-        with:
-          remote_host: "49u.3f0.myftpupload.com"
-          ssh_user: "git_deployer_3f62d8388a_541212"
-          ssh_private_key: ${{secrets.PRIVATE_KEY}}
-          deployment_dest: ${{ github.event.inputs.deployment_dest }}
 
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Start SSH agent
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.PRIVATE_KEY }}
+
+      - name: Add host to known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H 49u.3f0.myftpupload.com >> ~/.ssh/known_hosts
+
+      - name: Test SSH connection
+        run: |
+          ssh -o StrictHostKeyChecking=yes git_deployer_3f62d8388a_541212@49u.3f0.myftpupload.com "pwd || true"
+
+      - name: Deploy site
+        run: |
+          rsync -avz --delete \
+            --exclude ".git" \
+            --exclude ".github" \
+            ./ \
+            git_deployer_3f62d8388a_541212@49u.3f0.myftpupload.com:/
