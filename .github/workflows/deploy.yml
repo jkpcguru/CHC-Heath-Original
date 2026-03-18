@@ -1,0 +1,33 @@
+name: Deploy WordPress Site
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Start SSH agent
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.PRIVATE_KEY }}
+
+      - name: Add host to known hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H 49u.3f0.myftpupload.com >> ~/.ssh/known_hosts
+
+      - name: Deploy site
+        run: |
+          rsync -avz --delete \
+          --exclude ".git" \
+          --exclude ".github" \
+          ./ \
+          git_deployer_3f62d8388a_541212@49u.3f0.myftpupload.com:/
