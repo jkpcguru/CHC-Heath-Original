@@ -32,7 +32,7 @@ jobs:
 
       - name: Pull files from GoDaddy into repo
         run: |
-          rsync -rvz \
+          rsync -rvz html/
             --omit-dir-times \
             --no-perms \
             --no-owner \
