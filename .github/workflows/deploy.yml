@@ -13,7 +13,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
       - name: Checkout repository
         uses: actions/checkout@v6
 
@@ -34,6 +33,10 @@ jobs:
       - name: Deploy site
         run: |
           rsync -avz \
+            --omit-dir-times \
+            --no-perms \
+            --no-owner \
+            --no-group \
             --exclude ".git" \
             --exclude ".github" \
             -e "ssh" \
