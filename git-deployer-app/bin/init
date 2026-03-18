@@ -1,0 +1,32 @@
+#!/usr/bin/env php
+<?php
+
+define('START', microtime(true));
+define('APP_DIR', dirname(__DIR__));
+$baseDir = dirname(__DIR__);
+require $baseDir.'/vendor/autoload.php';
+
+use Symfony\Component\Console\Application;
+use Auryn\Injector;
+use Pagely\GitDeployer\Bootstrap;
+
+$application = new Application();
+$commandDir = $baseDir . '/src/Commands';
+$namespace = 'Pagely\\GitDeployer\\Commands\\';
+
+$injector = new Injector();
+$app = new Application();
+Bootstrap::init($injector);
+
+$commands = [];
+foreach (scandir($commandDir) as $file) {
+    if (strpos($file, 'Command.php') !== false) {
+        $class =  $namespace. pathinfo($file, PATHINFO_FILENAME);
+        if (class_exists($class)) {
+            $commands[] = $injector->make($class);
+        }
+    }
+}
+
+$application->addCommands($commands);
+$application->run();

@@ -1,0 +1,59 @@
+Processed /dom541212/.htaccess on Thu, 12 Mar 2026 00:25:27 +0000
+
+Parse errors for /dom541212/.htaccess:
+- unsupported directive AddDefaultCharset UTF-8
+- unsupported directive AddCharset UTF-8 .atom .css .js .json .rss .vtt .xml
+- unsupported directive Header unset ETag
+- unsupported directive FileETag None
+- unsupported directive Header set X-Powered-By WP Rocket/3.18.3
+- unsupported directive Header unset Pragma
+- unsupported directive Header append Cache-Control public
+- unsupported directive Header unset Last-Modified
+- unsupported directive Header unset Pragma
+- unsupported directive Header append Cache-Control public
+- unsupported directive AddType image/avif avif
+- unsupported directive AddType image/avif-sequence avifs
+- unsupported directive ExpiresActive on
+- unsupported directive ExpiresDefault access plus 1 month
+- unsupported directive ExpiresByType text/cache-manifest access plus 0 seconds
+- unsupported directive ExpiresByType text/xml access plus 0 seconds
+- unsupported directive ExpiresByType application/xml access plus 0 seconds
+- unsupported directive ExpiresByType application/json access plus 0 seconds
+- unsupported directive ExpiresByType application/rss+xml access plus 1 hour
+- unsupported directive ExpiresByType application/atom+xml access plus 1 hour
+- unsupported directive ExpiresByType image/x-icon access plus 1 week
+- unsupported directive ExpiresByType image/gif access plus 4 months
+- unsupported directive ExpiresByType image/png access plus 4 months
+- unsupported directive ExpiresByType image/jpeg access plus 4 months
+- unsupported directive ExpiresByType image/webp access plus 4 months
+- unsupported directive ExpiresByType video/ogg access plus 4 months
+- unsupported directive ExpiresByType audio/ogg access plus 4 months
+- unsupported directive ExpiresByType video/mp4 access plus 4 months
+- unsupported directive ExpiresByType video/webm access plus 4 months
+- unsupported directive ExpiresByType image/avif access plus 4 months
+- unsupported directive ExpiresByType image/avif-sequence access plus 4 months
+- unsupported directive ExpiresByType text/x-component access plus 1 month
+- unsupported directive ExpiresByType font/ttf access plus 4 months
+- unsupported directive ExpiresByType font/otf access plus 4 months
+- unsupported directive ExpiresByType font/woff access plus 4 months
+- unsupported directive ExpiresByType font/woff2 access plus 4 months
+- unsupported directive ExpiresByType image/svg+xml access plus 4 months
+- unsupported directive ExpiresByType application/vnd.ms-fontobject access plus 1 month
+- unsupported directive ExpiresByType text/css access plus 1 year
+- unsupported directive ExpiresByType application/javascript access plus 1 year
+- unsupported directive SetOutputFilter DEFLATE
+- unsupported directive SetEnvIfNoCase ^(Accept-EncodXng|X-cept-Encoding|X{15}|~{15}|-{15})$ ^((gzip|deflate)\s*,?\s*)+|[X~-]{4,13}$ HAVE_Accept-Encoding
+- unsupported directive RequestHeader append Accept-Encoding gzip,deflate env=HAVE_Accept-Encoding
+- unsupported directive SetEnvIfNoCase Request_URI \.(?:gif|jpe?g|png|rar|zip|exe|flv|mov|wma|mp3|avi|swf|mp?g|mp4|webm|webp|pdf)$ no-gzip dont-vary
+- unsupported directive AddOutputFilterByType DEFLATE application/atom+xml application/javascript application/json application/rss+xml application/vnd.ms-fontobject application/x-font-ttf application/xhtml+xml application/xml font/opentype image/svg+xml image/x-icon text/css text/html text/plain text/x-component text/xml
+- unsupported directive Header append Vary: Accept-Encoding
+- unsupported directive Options +FollowSymLinks
+- unsupported directive Header add Strict-Transport-Security max-age=300
+- unsupported directive Header always set Content-Security-Policy upgrade-insecure-requests
+
+Skipped directives for /dom541212/.htaccess:
+- RewriteCond %{HTTPS} !=on: Unsupported condition
+- {RewriteRule {.* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]}}: unsuppored unsupported flag [E]
+- {RewriteRule {^index\.php$ - [L]}}: unsupported pattern and substitution
+- {RewriteRule {. /index.php [L]}}: unsupported combination of test string and flags in rewrite condition
+	RewriteCond %{REQUEST_FILENAME} !-f; RewriteCond %{REQUEST_FILENAME} !-d
