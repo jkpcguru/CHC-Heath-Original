@@ -49,12 +49,6 @@ jobs:
             --no-group \
             --exclude ".git" \
             --exclude ".github" \
-            --exclude "wp-admin" \
-            --exclude "wp-includes" \
-            --exclude "wp-content/uploads" \
-            --exclude "wp-config.php" \
-            --exclude "vendor" \
-            --exclude "wp-content/mu-plugins/vendor" \
             -e "ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=yes" \
             git_deployer_81fab9972a_541212@49u.3f0.myftpupload.com:html/ \
             ./
