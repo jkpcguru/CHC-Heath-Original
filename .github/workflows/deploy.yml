@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
       - name: Checkout repository
         uses: actions/checkout@v6
 
@@ -32,8 +33,9 @@ jobs:
 
       - name: Deploy site
         run: |
-          rsync
+          rsync -avz \
             --exclude ".git" \
             --exclude ".github" \
+            -e "ssh" \
             ./ \
             git_deployer_81fab9972a_541212@49u.3f0.myftpupload.com:/
