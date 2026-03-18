@@ -1,12 +1,13 @@
-name: Deploy WordPress Site
+name: Import from GoDaddy SSH
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
-  deploy:
+  import:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,16 +20,17 @@ jobs:
           echo "${{ secrets.PRIVATE_KEY }}" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
 
-      - name: Add host to known_hosts
+      - name: Add GoDaddy host to known_hosts
         run: |
           ssh-keyscan -H 49u.3f0.myftpupload.com >> ~/.ssh/known_hosts
 
-      - name: Test SSH connection
+      - name: Show remote location
         run: |
           ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=yes \
-          git_deployer_81fab9972a_541212@49u.3f0.myftpupload.com "pwd && ls -la"
+            git_deployer_81fab9972a_541212@49u.3f0.myftpupload.com \
+            "pwd && ls -la"
 
-      - name: Deploy site
+      - name: Pull files from GoDaddy into repo
         run: |
           rsync -rvz \
             --omit-dir-times \
@@ -38,5 +40,20 @@ jobs:
             --exclude ".git" \
             --exclude ".github" \
             -e "ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=yes" \
-            ./ \
-            git_deployer_81fab9972a_541212@49u.3f0.myftpupload.com:/
+            git_deployer_81fab9972a_541212@49u.3f0.myftpupload.com:/ \
+            ./
+
+      - name: Show imported files
+        run: |
+          pwd
+          ls -la
+          find . -maxdepth 3 -type f | sort | head -200
+
+      - name: Commit and push imported files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .
+          git diff --cached --quiet && echo "No changes to commit" && exit 0
+          git commit -m "Import files from GoDaddy via SSH"
+          git push
