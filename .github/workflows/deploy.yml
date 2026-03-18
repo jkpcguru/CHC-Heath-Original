@@ -28,7 +28,7 @@ jobs:
 
       - name: Test SSH connection
         run: |
-          ssh -o StrictHostKeyChecking=yes git_deployer_3f62d8388a_541212@49u.3f0.myftpupload.com "pwd || true"
+          ssh -o StrictHostKeyChecking=yes git_deployer_81fab9972a_541212@49u.3f0.myftpupload.com "pwd || true"
 
       - name: Deploy site
         run: |
@@ -36,4 +36,4 @@ jobs:
             --exclude ".git" \
             --exclude ".github" \
             ./ \
-            git_deployer_3f62d8388a_541212@49u.3f0.myftpupload.com:/
+            git_deployer_81fab9972a_541212@49u.3f0.myftpupload.com:/
